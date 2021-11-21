@@ -12,6 +12,7 @@ public class PaddleController : NetworkBehaviour
     [SyncVar]
     private bool newBall = true;
 
+    //Possibly use an id instead to sync up the objects?
     private GameObject spawnedBall;
 
     private Vector3 cameraPos;
@@ -30,7 +31,6 @@ public class PaddleController : NetworkBehaviour
 
         if (isLocalPlayer)
         {
-            Debug.Log("Spawned");
             CmdSpawnBall();
         }
     }
@@ -73,7 +73,7 @@ public class PaddleController : NetworkBehaviour
             //Keeps the ball situated above the corresponding paddle till fired
             spawnedBall.transform.position = new Vector3(this.transform.position.x, spawnedBall.transform.position.y, spawnedBall.transform.position.z);
 
-            if (Input.GetMouseButtonDown(0) && isLocalPlayer)
+            if (Input.GetKeyDown(KeyCode.Space) && isLocalPlayer)
             {
                 //Fires in a random 90 degree cone after mouse click
                 Vector3 directionA = Quaternion.AngleAxis(Random.Range(-45.0f, 45.0f), Vector3.forward) * transform.up;
